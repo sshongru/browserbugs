@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>Caret left-aligned in center-aligned region</title>
+<style>
+.editable {
+  border:1px solid #CCC;  
+  text-align:center;
+}
+
+.editable:before{
+  content: '';
+}
+</style>
+</head>
+<body>
+
+<h1>A center-aligned contenteditable element left aligns the caret when it has a :before element with some content defined</h1>
+
+<p>Notice the caret position is at left until you start typing:</p>
+
+<div contentEditable="true" class="editable"></div>
+
+</body>
+</html>

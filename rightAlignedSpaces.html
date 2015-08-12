@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Safari: Spaces don't show up at end of right aligned region</title>
+<style>
+.outer {
+  background-color: #e3e3e3;
+  text-align: right;
+  font-size: 5rem;
+}
+
+.workaround:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 0;
+}
+</style>
+</head>
+<body>
+
+<h1>Safari: Spaces don't show up at end of right aligned region</h1>
+
+<p>Steps to reproduce:</p>
+<ol>
+	<li>Type a few spaces at the end of "Title"</li>
+	<li>Notice the spaces don't show up until you type a non-space character</li>
+</ol>
+
+<!-- Try typing a space after Title -->
+<div class="outer">
+	<span contenteditable="true">Title</span>
+</div>
+
+
+<p>Workaround:</p>
+<p>Place an empty <code>:after</code> region on the span</p>
+
+
+<!-- Workaround using :after -->
+<div class="outer">
+	<span class="workaround" contenteditable="true">Workaround</span>
+</div>
+
+</body>
+</html>

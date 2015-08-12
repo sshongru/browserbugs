@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>IE11 Fails to Set Selection on Paste Event</title>
+<style>
+p#input {
+	background-color: #E3E3E3;
+	font-family: monospace;
+	font-size: 50px;
+	margin: 0;
+	width: 500px;
+	white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<h1>IE11 Fails to Set Selection on Paste Event</h1>
+
+<p>Steps to reproduce:</p>
+<ol>
+	<li>Load in IE11</li>
+	<li>Select the "k" character</li>
+	<li>Right Click > Paste (DON'T USE CTRL+V) paste something</li>
+	<li>Notice the caret doesn't go to the 1 position (between a and b)</li>
+	<li>Tap a keybaord key, notice the caret does move to the 1 position</li>
+</ol>
+
+<p>Workaround:</p>
+<p>Use a <code>setTimeout( function(){}, 0 )</code> when setting the caret position within an onpaste handler in IE.</p>
+
+<div class="wrapper">
+	<p id="input" contenteditable="true" class="editable-region" onkeyup="handle( event )" onpaste="handle( event )">abcdefghijk</p>
+</div>
+
+<script type="text/javascript">
+function handle( event ) {
+	event.preventDefault();
+
+// Workaround for IE11 is to wait for the stack to unwind:
+//setTimeout(function(){
+	setCaretPosition( 1, 1 );
+//},0);
+}
+
+function setCaretPosition( start, end ){
+	var input = document.getElementById( 'input' );
+
+    // set the selection
+    if ( document.createRange && window.getSelection ){
+        var range = document.createRange();
+        range.selectNodeContents( input );
+
+        range.setStart(  input.childNodes[ 0 ], start );
+        range.setEnd(  input.childNodes[ 0 ], end );
+            
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange( range );
+    }
+}
+
+</script>
+</body>
+</html>

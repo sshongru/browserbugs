@@ -1,0 +1,196 @@
+<html>
+<head>
+<title>Getting Plain Text Selection Indices in Contenteditable</title>
+<style>
+p#input, span#measure {
+	background-color: #E3E3E3;
+	font-family: monospace;
+	font-size: 50px;
+	margin: 0;
+}
+p#input {
+	width: 500px;
+	margin-bottom: 1px;
+	white-space: nowrap;
+}
+
+#measure {
+	position: absolute;
+	visibility: hidden;
+}
+
+.markers {
+	position:relative;
+	height: 25px;
+}
+.marker {
+	position: absolute;
+	top: 0;
+	left: 30px;
+	height: 100%;
+	width: 1px;
+	background:rgb(35,156,255);
+
+	-webkit-transition: left 100ms, width 100ms;
+    transition: left 100ms, width 100ms;
+}
+
+::selection {
+	background:rgb(35,156,255);
+	color:#FFF;
+}
+
+::-moz-selection {
+	background:rgb(35,156,255);
+	color:#FFF;
+}
+
+::-webkit-selection {
+	background:rgb(35,156,255);
+	color:#FFF;
+}
+</style>
+</head>
+<body onload="handleLoad()">
+
+<h1>Getting Plain Text Selection Indices in Contenteditable</h1>
+
+<p>Steps to reproduce:</p>
+
+<ol>
+	<li>Select "kl"</li>
+	<li>Notice the <code>anchorNode</code> is <code>#text</code></li>
+	<li>CTRL+I to un-italicize it</li>
+	<li>CTRL+I to re-italicize it</li>
+	<li>Notice in IE11 the <code>anchorNode</code> is <code>STRONG</code></li>
+</ol>
+
+<p>IE11 has an annoying trait that will sometimes set the <code>anchorNode</code> and <code>startContainer</code> to weird things.  For example in the steps above IE11 will set the <code>anchorNode</code> to the <code>strong</code> tag with a <code>startOffset</code> meaning a child index.  I believe this should technically be the <code>TextNode</code> within the <code>em</code> like it is in Webkit (and was when this file was first loaded in IE11).</p>
+
+<p>Note that to get into this state you have to modify the contenteditable region in a way that mucks with existing <code>strong</code>/<code>em</code> tags.</p>
+
+<p>The blue box under the paragraph demonstrates a cross browser method of getting the plain text indices into the selection that works around the IE11 oddities mentioned above.  Notice that whenever you change the selection with your mouse the blue box under the paragraph should match the selection within the paragraph even after modifying the region with CTRL+B/CTRL+I.</p>
+
+<p>Tested in Chrome 44, Safari 8.0.7, Firefox 39, IE11 on Macbook Pro with OSX 10.10.4</p>
+
+<div class="wrapper">
+	<p id="input" contenteditable="true" class="editable-region" onmouseup="handle()" onkeyup="handle()">abcde<strong>fghij<em>klmno</em></strong></p>
+
+	<div class="markers">
+		<div class="marker"></div>
+	</div>
+</div>
+
+<span id="measure">W</span>
+<div id="output"></div>
+
+<script type="text/javascript">
+
+var characterWidth = 0;
+
+function handleLoad(){
+	// find out how wide a character is
+	var measure = document.getElementById( 'measure' );
+	characterWidth = measure.offsetWidth;
+}
+
+function positionMarker( start, length ){
+	var marker = document.querySelector( '.marker' );
+
+	marker.style.left = ( start * characterWidth ) + 'px';
+	marker.style.width = Math.max( 1, length * characterWidth ) + 'px';
+}
+
+function handle( event ) {
+	var output = document.getElementById( 'output' );
+	var sel = window.getSelection();
+	var r = sel.getRangeAt( 0 );
+	var a = sel.anchorNode;
+	var f = sel.focusNode;
+
+	var log = '';
+	
+	var selectionStart = getSelectionPlainTextStart( document.getElementById( 'input' ) );
+	var selectionLength = getSelectionPlainTextLength();
+
+	log += 'selectionLength: ' + selectionLength + '<br>\n';
+	log += 'selectionStart: ' + selectionStart + '<br>\n';
+
+	log += '<hr>';
+	log += 'anchorNode: ' + a.nodeName + ' ' + sel.anchorOffset + '<br>\n';
+	log += 'focusNode: ' + f.nodeName + ' ' + sel.focusOffset + '<br>\n';
+	log += 'startContainer: ' + r.startContainer + ' ' + r.startOffset + '<br>\n';
+
+	positionMarker( selectionStart, selectionLength );
+
+	output.innerHTML = log;
+}
+
+function getSelectionPlainTextLength( ){
+	// length is easy enough with this method
+	var range = window.getSelection().getRangeAt( 0 );
+	var contents = range.cloneContents();
+	return contents.textContent.length;
+}
+
+function getSelectionPlainTextStart( el ){
+	var range = window.getSelection().getRangeAt( 0 );
+	var count = 0;
+
+	var startContainer = range.startContainer;
+	var target = startContainer;
+
+	// if the start container isn't a text node then the startOffset
+	// actually means the start of the child at that index
+	if ( startContainer.nodeType != 3 ){
+		target = startContainer.childNodes[ range.startOffset ];
+	} else {
+		count += range.startOffset;
+	}
+
+	var textNodes = getTextNodesBeforeTarget( el, target ).textNodes;
+
+	console.log( 'textNodes', textNodes );
+
+	for ( var i = 0; i < textNodes.length; i++ ){
+		var x = textNodes[ i ].textContent.length;
+		count += x;
+	}
+
+	return count;
+}
+
+function getTextNodesBeforeTarget ( node, targetNode ){
+	var returnValue = { textNodes: [], stop: false };
+
+    if ( node === targetNode ){
+    	returnValue.stop = true;
+    	return returnValue;
+    }
+
+    if ( node.nodeType == 3 ){
+    	returnValue.textNodes = [ node ];
+        return returnValue;
+    }
+
+    var children = node.childNodes;
+    for ( var i = 0; i < children.length; i++ ){
+    	if ( children[ i ] === targetNode ){
+    		returnValue.stop = true;
+    		break;
+    	}
+    	var c = getTextNodesBeforeTarget( children[ i ], targetNode );
+		returnValue.textNodes = returnValue.textNodes.concat( c.textNodes );
+
+    	if ( c.stop ){
+    		returnValue.stop = true;
+    		break;
+    	}
+    }
+
+    return returnValue;
+}
+
+</script>
+</body>
+</html>

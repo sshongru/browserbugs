@@ -1,0 +1,46 @@
+<html>
+<head>
+<style>
+	p.editable, input, textarea {
+		text-transform: uppercase;
+		width: 100%;
+		height: 100px;
+		background-color: rgba(255,0,0,0.5);
+	}
+</style>
+</head>
+<body>
+
+<h1>BUG: Dictation fails in Safari on iOS when the input has an uppercase <code>text-transform</code></h1>
+
+<p>We ran across this in our native iOS app that uses a UIWebView.  We found that when you tried to dictate into an editable element with a <code>text-transform</code> only the first character or two would show up.</p>
+
+<p>The XCode logs showed many errors like this:</p>
+
+<pre>Given text range 'UITextRangeImpl(7082DB80) - start:&lt;UITextPosition: 0x174608a80, 0, {""}, {"WH"}&gt;, end:&lt;UITextPosition: 0x17460a920, 2, {"WH"}, {""}&gt;' we could not find the last hypothesis "Wh". The likely cause is that something modified the text store or the hypothesis during dictation.</pre>
+
+<p>It claims that something "modified the text store" which would make sense since I assume setting the <code>text-transform</code> to uppercase is doing exactly that.</p>
+
+<h2>Environment</h2>
+
+iPad Air with iOS 8.1.2
+
+<h2>Steps to Reproduce:</h2>
+
+<ol>
+<li>Using an iPad with iOS 8...</li>
+<li>Tap into a red region</li>
+<li>Tap the dictation button on the keyboard and say "Why doesn't this work"</li>
+<li>Notice only the first couple characters make it in</li>
+<li>Notice it fails for all three types of entry</li>
+</ol>
+
+
+<p class="editable" contenteditable="true">ContentEditable</p>
+
+<input type="text" value="input">
+
+<textarea>TextArea</textarea>
+
+</body>
+</html>

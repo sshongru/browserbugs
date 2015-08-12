@@ -1,0 +1,39 @@
+<html>
+<head>
+<style>
+	p.editable, input, textarea {
+		width: 100%;
+		height: 100px;
+		background-color: rgba(255,0,0,0.5);
+	}
+</style>
+</head>
+<body>
+
+<h1>BUG: <code>autocapitalize</code> doesn't work on content editable regions</h1>
+
+<p>The <a href="https://developer.apple.com/library/safari/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/Attributes.html#//apple_ref/doc/uid/TP40008058-autocapitalize">documentation</a> seems to imply that this is only available on form elements like <code>input</code> and <code>textarea</code>.  But <a href="http://lists.w3.org/Archives/Public/public-html/2011Apr/0008.html">this proposal</a> from Apple in 2011 makes it look like it should be added to contenteditable regions too... maybe there's a chance this is coming eventually?</p>
+
+<h2>Environment</h2>
+
+iPad Air with iOS 8.1.2
+
+<h2>Steps to Reproduce:</h2>
+
+<ol>
+<li>Using an iPad with iOS 8...</li>
+<li>Tap into a red region</li>
+<li>Type in a sentence</li>
+<li>Notice the contenteditable region doesn't respect the "words" autocapitalize property</li>
+<li>Also notice that in the form fields the <b>second</b> character of each word is being capitalized</li>
+</ol>
+
+
+<p class="editable" contenteditable="true" autocapitalize="words">ContentEditable</p>
+
+<input type="text" value="input" autocapitalize="words">
+
+<textarea autocapitalize="words">TextArea</textarea>
+
+</body>
+</html>

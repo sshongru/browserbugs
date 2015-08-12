@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Webkit: Selection Range has Extra ClientRects at the end/beginning of some lines</title>
+<style>
+p {
+	width: 200px;
+	background-color: #E3E3E3;
+	font-family: monospace;
+	font-size: 40px;
+}
+</style>
+</head>
+<body>
+
+<h1>Webkit: Selection Range has Extra ClientRects at the end/beginning of some lines</h1>
+
+<h3>Steps to reproduce:</h3>
+<ol>
+	<li>Open in Chrome</li>
+	<li>Click into the contenteditable region</li>
+	<li>Use the keyboard arrows to change the caret position</li>
+	<li>Notice when the caret is at the end of some lines the ClientRects length is 2</li>
+</ol>
+
+<p id="input" contenteditable="true">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
+
+<div id="output"></div>
+
+<script type="text/javascript">
+document.addEventListener( 'keyup', function ( event ){
+	var input = document.getElementById( 'input' );	
+	var output = document.getElementById( 'output' );
+	console.log( 'selectionChange' );
+
+	var selection = window.getSelection();
+
+	if ( selection.rangeCount > 0 ){
+		var range = selection.getRangeAt( 0 );
+
+		var clientRects = range.getClientRects();
+
+		output.innerHTML = 'ClientRects.length: ' + clientRects.length;
+		console.log( 'ClientRects.length:', clientRects );
+	}
+});
+</script>
+</body>
+</html>
