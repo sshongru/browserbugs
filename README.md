@@ -2,6 +2,10 @@
 
 When you build a text editing surface based on contenteditable which is designed for use on both iOS and desktop you run into a lot of browser bugs.  I've gathered a bunch of these bugs, samples, and workarounds here so it can be tracked in one place.
 
+### IE11: Caret remains visible after blur() called within an iframe
+
+See caretRemains.html
+
 ### IE11: Selection cannot be set on paste event handler
 
 See setSelectionOnPaste.html
@@ -56,6 +60,7 @@ The caret position is often hidden off screen when using custom keyboards.  If t
 ### A contenteditable element puts the caret at left instead of center when it has a :before element with some content defined
 
 Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=135914
+
 Chrome Bug: https://code.google.com/p/chromium/issues/detail?id=403581&thanks=403581&ts=1407972699
 
 See leftAlignedCaret.html

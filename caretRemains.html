@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>IE11: Caret remains visible after blur() called within an iframe</title>
+<style type="text/css">
+body * {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+</style>
+</head>
+<body>
+
+<h1>IE11: Caret remains visible after blur() called within an iframe</h1>
+
+<p>Steps to reproduce:</p>
+<ol>
+    <li>Open this page in IE11</li>
+    <li>Click into the text area</li>
+    <li>Tap the SHIFT key</li>
+    <li>Notice the caret doesn't disappear</li>
+</ol>
+
+<p>Workaround:</p>
+
+<p>Remove the <code>-ms-user-select</code> rule on the iframe or set it to <code>text</code>.</p>
+
+<p>Notes:</p>
+</p><a href="https://msdn.microsoft.com/en-us/library/hh781492(v=vs.85).aspx">-ms-user-select property description</a></p>
+
+<iframe src="caretRemainsInner.html"></iframe>
+
+</body>
+</html>
