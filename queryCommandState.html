@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>Firefox: Calling queryCommandState can result in NS_ERROR_FAILURE</title>
+</head>
+<body>
+
+<h1>Firefox: Calling <code>queryCommandState()</code> can result in NS_ERROR_FAILURE</h1>
+
+<p>If the page doesn't have any contenteditable regions then Firefox will throw an error when you try to call <code>queryCommandState</code>.</p>
+
+<p>Steps to reproduce:</p>
+<ol>
+    <li>Open this page in Firefox 40</li>
+    <li>Click the button</li>
+    <li>Notice the error in the console</li>
+</ol>
+
+<p>Workaround:</p>
+
+<ol>
+	<li>Uncomment the contenteditable region so at least one exists on the page at all times.</li>
+	<li>Or... in the click handler detect if the selection is within a contenteditable region before calling <code>queryCommandState</code>.</li>
+</ol>
+
+<!--<p contenteditable="true">abc<strong>def</strong>ghi</p>-->
+
+<button onclick="clickHandler()">Click me</button>
+
+<div id="output"></div>
+
+<script>
+function clickHandler(){
+	var output = document.getElementById( 'output' );
+
+	var isBold = document.queryCommandState( 'bold' );
+
+	output.innerHTML = 'isbold: ' + isBold;
+}
+</script>
+
+</body>
+</html>

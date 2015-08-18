@@ -2,6 +2,10 @@
 
 When you build a text editing surface based on contenteditable which is designed for use on both iOS and desktop you run into a lot of browser bugs.  I've gathered a bunch of these bugs, samples, and workarounds here so it can be tracked in one place.
 
+### Firefox: Calling queryCommandState can result in NS_ERROR_FAILURE when no contenteditable region is on the page
+
+See queryCommandState.html
+
 ### IE11: Caret remains visible after blur() called within an iframe
 
 See caretRemains.html
