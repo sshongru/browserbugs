@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>Firefox: Setting selection doesn't set focus</title>
+<style>
+p#input {
+	background-color: #E3E3E3;
+	font-family: monospace;
+	font-size: 50px;
+	margin: 0;
+	width: 500px;
+	margin-bottom: 1px;
+	white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<h1>Firefox: Setting selection doesn't set focus</h1>
+
+<p>Steps to reproduce:</p>
+
+<ol>
+	<li>Open this file in Firefox 40</li>
+	<li>Click the button</li>
+	<li>Start typing some text</li>
+	<li>Notice the text you type doesn't appear</li>
+	<li>Notice that it does work in other browsers (Chrome/Safari/IE11)</li>
+</ol>
+
+<p>Workaround:</p>
+
+<p>Call <code>.focus()</code> on the contenteditable region before setting the caret position. </p>
+
+<button onclick="setCaretPosition( 2, 4 );">Click Me</button>
+
+<div id="wrapper">
+	<p id="input" contenteditable="true">abcdef</p>
+</div>
+
+<div id="output"></div>
+
+<script type="text/javascript">
+function setCaretPosition( start, end ){
+	var input = document.getElementById( 'input' );
+
+	// workaround: set the focus on an editable region before setting selection:
+	//input.focus();
+
+    // set the selection
+    if ( document.createRange && window.getSelection ){
+        var range = document.createRange();
+        range.selectNodeContents( input );
+
+        range.setStart(  input.childNodes[ 0 ], start );
+        range.setEnd(  input.childNodes[ 0 ], end );
+            
+        var selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange( range );
+    }
+}
+</script>
+</body>
+</html>
