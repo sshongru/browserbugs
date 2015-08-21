@@ -31,6 +31,8 @@ p#input {
 
 <p>I don't entirely understand why this only reproduces with a <code>button</code> here, but in I've run into it when clicking on a <code>div</code> as well in a larger application.</p>
 
+<p>Note that this only happens when the <code>removeAllRanges()</code> call orginates from a click event.  You'll notice that if you setup an <code>onload</code> handler that just sets a timeout to clear the range after 5 seconds it will work as expected.</p>
+
 <p id="input" contenteditable="true" onfocus="handleFocus();">abcdef</p>
 
 <button onclick="handleClick()">Click me</button>
