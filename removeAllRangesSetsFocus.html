@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IE11: Removing all ranges sets focus</title>
+<style>
+p#input {
+	background-color: #E3E3E3;
+	font-family: monospace;
+	font-size: 50px;
+	margin: 0;
+	width: 500px;
+	margin-bottom: 1px;
+	white-space: nowrap;
+}
+</style>
+</head>
+<body>
+
+<h1>IE11: Removing all ranges sets focus</h1>
+
+<p>If you call <code>removeAllRanges()</code> to clear a selection within a <code>contenteditable</code> region that will sometimes trigger a <code>focus</code> event on the contenteditable region.</p>
+
+<p>Steps to reproduce:</p>
+
+<ol>
+	<li>Open this page in IE11</li>
+	<li>Select the "bcd" text</li>
+	<li>Click the button</li>
+	<li>Notice that clicking the button caused another <code>focus</code> event to be fired on the contenteditable region</li>
+</ol>
+
+<p>I don't entirely understand why this only reproduces with a <code>button</code> here, but in I've run into it when clicking on a <code>div</code> as well in a larger application.</p>
+
+<p id="input" contenteditable="true" onfocus="handleFocus();">abcdef</p>
+
+<button onclick="handleClick()">Click me</button>
+
+<div id="output"></div>
+
+<script type="text/javascript">
+
+function handleClick(){
+	var textSelection = window.getSelection();
+
+    if ( textSelection ){
+        if ( textSelection.removeAllRanges ){
+            textSelection.removeAllRanges();
+        }
+    }
+}
+
+function handleFocus(){
+	var output = document.getElementById( 'output' );
+	output.innerHTML = output.innerHTML + '<br>focus ' + Date.now();
+}
+
+</script>
+</body>
+</html>
