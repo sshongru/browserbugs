@@ -35,6 +35,7 @@ See extraClientRects.html
 ### Safari: autocapitalize doesn't work on contenteditable regions
 
 Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=148503
+
 Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=148504
 
 See autoCapitalize.html
