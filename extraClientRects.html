@@ -8,6 +8,15 @@ p {
 	font-family: monospace;
 	font-size: 40px;
 }
+
+.pass {
+	color: green;
+}
+
+.fail {
+	color: red;
+	font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -16,10 +25,11 @@ p {
 
 <h3>Steps to reproduce:</h3>
 <ol>
-	<li>Open in Chrome</li>
-	<li>Click into the contenteditable region</li>
-	<li>Use the keyboard arrows to change the caret position</li>
-	<li>Notice when the caret is at the end of some lines the ClientRects length is 2</li>
+	<li>Open in Safari/Chrome</li>
+	<li>Click the 'C' in the contenteditable region</li>
+	<li>Tap the <code>RIGHT</code> keyboard arrow key repeatedly to move the caret through the text</li>
+	<li>Notice when the caret is at the end of a line the ClientRects length is 2 (doesn't happen on the last line)</li>
+	<li>Notice when the caret is at the start of a line the ClientRects length is 2 (doesn't happen on the first line)</li>
 </ol>
 
 <p id="input" contenteditable="true">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
@@ -30,17 +40,20 @@ p {
 document.addEventListener( 'keyup', function ( event ){
 	var input = document.getElementById( 'input' );	
 	var output = document.getElementById( 'output' );
-	console.log( 'selectionChange' );
-
 	var selection = window.getSelection();
 
 	if ( selection.rangeCount > 0 ){
+		var className = 'pass';
 		var range = selection.getRangeAt( 0 );
-
 		var clientRects = range.getClientRects();
+		var length = clientRects.length;
 
-		output.innerHTML = 'ClientRects.length: ' + clientRects.length;
-		console.log( 'ClientRects.length:', clientRects );
+		if ( length == 2 ){
+			className = 'fail';
+		}
+
+		output.innerHTML = '<span class="' + className + '">ClientRects.length: ' + length + '</span>';
+		console.log( 'ClientRects.length:', length );
 	}
 });
 </script>

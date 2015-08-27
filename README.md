@@ -28,9 +28,14 @@ See plainTextIndices.html
 
 ### Webkit: Extra ClientRects in Selection Range at the start/end of lines
 
+Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=148532
+
 See extraClientRects.html
 
 ### Safari: autocapitalize doesn't work on contenteditable regions
+
+Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=148503
+Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=148504
 
 See autoCapitalize.html
 
@@ -57,6 +62,8 @@ Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=137070
 If your application relies on detecting keydown events (like intercepting ENTER/BACKSPACE for example) you may want to disable custom keyboards in the native shell app since custom keyboards aren't firing keydown/keypress events.
 
 ### iOS8: custom keyboards don’t always scroll the caret into view
+
+Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=148496
 
 Steps to reproduce:
 
