@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>OSX: File dialog doesn't restore Apple Photos location when choosing another photo</title>
+</head>
+<body>
+
+<h1>OSX: File dialog doesn't restore Apple Photos location when choosing another photo</h1>
+
+<p>When you choose a photo from Apple Photos via the "Media" link in the upload dialog Apple Photos exports that photo and sends it to the browser.</p>
+
+<p>This first picture works great, but then when you bring up the dialog again you will lose your context as Apple puts the dialog into some random folder.  Sometimes its the last non-Apple Photos folder you used and sometimes its the export location of the last photo.</p>
+
+<p><b>Steps to reproduce:</b></p>
+<ol>
+    <li>Have some pictures in your Apple Photos app</li>
+    <li>Click on the first "Choose File" button</li>
+    <li>Select one of your Apple Photos by clicking on the "Photos" button under the "Media" section on the left of the upload dialog</li>
+    <li>Click on the second "Choose File" button</li>
+    <li>Notice that when the dialog comes up it isn't at your last Apple Photos location, but instead on some folder on the hard drive.</li>
+    <li>The user then has to re-navigate to Apple Photos and find their last context</li>
+</ol>
+
+<input type="file">One <br>
+<input type="file">Two
+
+</body>
+</html>
