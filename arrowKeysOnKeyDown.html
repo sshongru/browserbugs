@@ -1,0 +1,45 @@
+<html>
+<head>
+<style>
+	p#input {
+		background-color: rgba(255,0,0,0.5);
+		font-size: 3rem;
+	}
+</style>
+</head>
+<body>
+
+<h1>iOS: <code>keydown</code> event doesn't fire when arrow keys pressed on external keyboard</h1>
+
+<h2>Steps to Reproduce:</h2>
+
+<ol>
+<li>Connect an external keyboard to an iPad Simulator: Hardware > Keyboard > Connect Hardware Keyboard</li>
+<li>Open this file in Safari on an iPad Simulator</li>
+<li>Tap into the editable region</li>
+<li>Press the arrow keys on the keyboard</li>
+<li>Notice the <code>keydown</code> event doesn't fire</li>
+</ol>
+
+<p><em>These instructions are specific to the iOS simulator, but I assume the same steps apply when connecting a physical keyboard to a real iPad?</em></p>
+
+<p id="input" contenteditable="true">
+Press arrow keys in this editable region.
+</p>
+
+<div id="output">Output</div>
+
+<script>
+var input = document.getElementById( 'input' );
+var output = document.getElementById( 'output' );
+
+input.addEventListener( 'keydown', function( e ){
+	var str = 'keydown ' + e.keyCode;
+
+	console.log( str );
+	output.innerHTML = str;
+});
+</script>
+
+</body>
+</html>

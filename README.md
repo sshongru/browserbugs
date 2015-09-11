@@ -2,6 +2,12 @@
 
 When you build a text editing surface based on contenteditable which is designed for use on both iOS and desktop you run into a lot of browser bugs.  I've gathered a bunch of these bugs, samples, and workarounds here so it can be tracked in one place.
 
+### iOS Safari: keydown event doesn't fire when arrow keys pressed on external keyboard
+
+Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=149054
+
+See arrowKeysOnKeyDown.html
+
 ### OSX: File dialog doesn't restore Apple Photos location when choosing another photo
 
 Filed at bugreport.apple.com (#22630757)
