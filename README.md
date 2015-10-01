@@ -3,6 +3,12 @@
 When you build a text editing surface based on contenteditable which is designed for use on both iOS and desktop you run into a lot of browser bugs.  I've gathered a bunch of these bugs, samples, and workarounds here so it can be tracked in one place.
 
 
+### IE: input event is not supported on contenteditable regions
+
+See https://connect.microsoft.com/IE/feedbackdetail/view/794285
+
+Not sure why it lists that as fixed in Edge because from what I can tell it is still broken there.
+
 ### IE: Ordered list items are all 1s when element between li and ol exists
 
 See elementBetweenListAndItem.html
