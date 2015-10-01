@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>IE: Ordered list items are all 1s when element between li and ol exists</title>
+</head>
+<body>
+
+<h1>IE: Ordered list items are all 1s when element between li and ol exists</h1>
+    
+<h3>Steps to reproduce</h3>
+
+<ol>
+    <li>Place a <code>div</code> tag between an <code>ol</code> and <code>li</code> element</li>
+    <li>Notice in IE and Edge that the list numbers always start with 1</li>
+</ol>
+
+<h3>Notes</h3>
+
+<p>According to <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/ol" target="_blank">MDN</a> the only tags permitted inside a <code>ol</code> are "Zero or more &lt;li&gt; elements" so it is a little odd to be doing this.  Every other browser seems to handle it fine, it's just IE/Edge that trip up.</p>
+
+<p>I believe Microsoft has said that any departure from webkit rendering in Edge is considered a bug so I would definitely consider this a bug in Edge.</p>
+
+<h3>Example</h3>
+
+<ol>
+    <div><li>One</li></div>
+    <div><li>Two</li></div>
+    <div><li>Three</li></div>
+    <div><li>Four</li></div>
+    <div><li>Five</li></div>
+    <div><li>Six</li></div>
+</ol>
+
+<h3>Workaround</h3>
+
+<p>Manually set each <code>li</code> tag's <code>value</code> property.</p>
+
+</body>
+</html>
