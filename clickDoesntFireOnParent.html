@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Firefox: Click event doesn't fire on parent when mousedown occurs on child</title>
+<title>Chrome/IE: Click event fires on parent when mousedown occurs on child</title>
 <style>
 #outer {
     background-color: #0000AA;
@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<h1>Firefox: Click event doesn't fire on parent when mousedown occurs on child</h1>
+<h1>Chrome/IE: Click event fires on parent when mousedown occurs on child</h1>
     
 <h3>Steps to reproduce</h3>
 
@@ -26,7 +26,7 @@
     <li>Notice the alert happens</li>
 </ol>
 
-<p>Chrome/Safari/Edge all fire the event in this condition, but Firefox does not.  Not sure who is more correct here.</p>
+<p>Chrome, IE11, and Edge fire the event in this condition, but Safari and Firefox do not.  Not sure who is more correct here, but I would lean more towards Safari/Firefox.</p>
 
 <div id="outer">
     <div id="inner">

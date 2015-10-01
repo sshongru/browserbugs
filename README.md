@@ -13,7 +13,7 @@ Not sure why it lists that as fixed in Edge because from what I can tell it is s
 
 See elementBetweenListAndItem.html
 
-### Firefox: Click event doesn't fire on parent when mousedown occurs on child
+### Chrome/IE: Click event fires on parent when mousedown occurs on child
 
 See clickDoesntFireOnParent.html
 
