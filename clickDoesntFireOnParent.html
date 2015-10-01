@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Firefox: Click event doesn't fire on parent when mousedown occurs on child</title>
+<style>
+#outer {
+    background-color: #0000AA;
+}
+
+#inner {
+    background-color: #00AA00;
+    width: 50%;
+    height: 200px;
+}
+</style>
+</head>
+<body>
+
+<h1>Firefox: Click event doesn't fire on parent when mousedown occurs on child</h1>
+    
+<h3>Steps to reproduce</h3>
+
+<ol>
+    <li>Mouse down on the green area</li>
+    <li>Drag mouse over the blue area</li>
+    <li>Mouse up over the blue area</li>
+    <li>Notice the alert happens</li>
+</ol>
+
+<p>Chrome/Safari/Edge all fire the event in this condition, but Firefox does not.  Not sure who is more correct here.</p>
+
+<div id="outer">
+    <div id="inner">
+        <p>Testing</p>
+    </div>
+</div>
+
+<script type="text/javascript">
+var outer = document.getElementById( 'outer' );
+
+outer.addEventListener( 'click', function ( event ) {
+	alert( 'click' );
+} );
+</script>
+</body>
+</html>
