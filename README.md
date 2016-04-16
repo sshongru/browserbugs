@@ -122,3 +122,10 @@ Ideally there would be better placeholder support on contenteditable regions so 
 Safari Bug: https://bugs.webkit.org/show_bug.cgi?id=136827
 
 See rightAlignedSpaces.html
+
+
+### Safari: Spacebar is sometimes ignored in a contenteditable region when the caret is against the right of the region
+
+Safari Bug: https://bugs.webkit.org/show_bug.cgi?id=156657
+
+See spacebarIgnored.html

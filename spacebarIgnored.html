@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <style>
+    h1#input {
+      background-color: #e3e3e3;
+      width: 80px;
+      font-family: monospace;
+      font-size: 2em;
+      border: 0;
+      margin: 0;
+      padding: 1em;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>BUG: Spacebar is sometimes ignored in contenteditable region when caret is against the right side of the region</h1>
+
+    <h2>Environment</h2>
+
+    <p>Reproduces in Safari on OSX 10.10.5 and Safari on iOS 9</p>
+
+    <h2>Steps to Reproduce:</h2>
+
+    <ol>
+      <li>Put the caret after the "Hello" text</li>
+      <li>Press the space bar a few times</li>
+      <li>Type "World"</li>
+      <li>Press the Show Value button</li>
+      <li>Notice the value is "HelloWorld" and all the spacebar keys were ignored</li>
+    </ol>
+
+    <h1 id="input" contenteditable="true">Hello</h1>
+
+    <button id="button">Show Value</button>
+    
+    <script>
+      var input = document.getElementById( 'input' );
+      input.addEventListener( 'input', function(event){
+        console.log( 'input.innerText = "' + input.innerText + '"' );
+      });
+
+      var button = document.getElementById( 'button' );
+      button.addEventListener( 'click', function( event ) {
+        alert( input.innerText );
+      });
+    </script>
+  </body> 
+</html>
