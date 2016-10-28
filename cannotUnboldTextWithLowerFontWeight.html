@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Bold text cannot be unbolded when it uses a font weight under 600</title>
+        <meta charset='utf-8'>
+        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+        <style>
+            .editable-region {
+                font-family: 'Source Sans Pro', sans-serif;
+                padding: 20px;
+                background-color: rgba(255,0,0,0.1);
+                font-weight: 200;
+            }
+
+            .editable-region b,
+            .editable-region strong {
+                font-weight: 400;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Bold text cannot be unbolded when it uses a font weight under 600</h1>
+
+        <p>It seems like the browser is deciding that since the <code>b</code>/<code>strong</code> tags have a weight closer to normal than bold that the text is already "unbolded" even though visually and semantically that isn't the case. The browser should instead decide whether to unbold something based on the semantic tags involved in the selection.</p>
+
+        <h2>Steps to Reproduce:</h2>
+
+        <ol>
+            <li>Using Chrome/Safari/Firefox...</li>
+            <li>Select some bold text in the following red <code>contenteditable</code> region</li>
+            <li>Click the "Toggle Bold" button (or the CTRL+B shortcut in some browsers)</li>
+            <li>Notice that the text doesn't unbold</li>
+        </ol>
+
+        <p contenteditable="true" class="editable-region">Select this <strong>bold</strong> text then click "Toggle Bold" to unbold it. Notice nothing happens in Chrome/Safari/Firefox. IE11/Edge work correctly.</p>
+
+        <button onclick="toggleBold()">Toggle Bold</button>
+
+        <script>
+            function toggleBold(){
+                document.execCommand( 'bold', false );
+            }
+        </script>
+    </body>
+</html>

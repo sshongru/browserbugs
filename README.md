@@ -3,6 +3,12 @@
 When you build a text editing surface based on contenteditable which is designed for use on both iOS and desktop you run into a lot of browser bugs.  I've gathered a bunch of these bugs, samples, and workarounds here so it can be tracked in one place.
 
 
+### Chrome/Safari/Firefox: Bold text cannot be unbolded when it uses a font weight under 600
+
+Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=164149
+
+See cannotUnboldTextWithLowerFontWeight.html
+
 ### IE: input event is not supported on contenteditable regions
 
 See https://connect.microsoft.com/IE/feedbackdetail/view/794285
