@@ -2,6 +2,9 @@
 
 When you build a text editing surface based on contenteditable which is designed for use on both iOS and desktop you run into a lot of browser bugs.  I've gathered a bunch of these bugs, samples, and workarounds here so it can be tracked in one place.
 
+### iOS10: mailto links don't work inside of frames
+
+Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=164378
 
 ### Chrome/Safari/Firefox: Bold text cannot be unbolded when it uses a font weight under 600
 
