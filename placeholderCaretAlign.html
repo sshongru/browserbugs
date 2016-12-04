@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Chrome 54: Caret is misaligned when using :before as a placeholder in contenteditable region</title>
+<style type="text/css">
+.title {
+  text-align: center;
+}
+
+.editable-region {
+  cursor: text;
+  padding: 6px;
+  display: inline-block;
+  background-color: rgba(255,0,0,0.5);
+}
+
+.editable-region.focus.empty:before {
+  content: 'Add a title';
+  opacity: 0.25;
+}
+</style>
+</head>
+<body>
+
+<h1>Chrome 54: Caret is misaligned when using :before as a placeholder in contenteditable region</h1>
+
+<h3>Steps to reproduce</h3>
+<ol>
+    <li>Click into the red region below</li>
+    <li>Notice the caret goes in the middle of the span instead of at the start</li>
+</ol>
+
+<span class="title">
+  <span class="editable-region empty focus" contenteditable="true"></span>
+</span>
+
+<h3>Workaround</h3>
+
+Set the <code>text-align</code> property of the editable-region's empty and focus state to left:
+
+<pre><code>
+.title-editable.focus.empty {
+  text-align: left;
+}
+</code></pre>
+
+<h3>Notes:</h3>
+
+<ul>
+	<li>This was a recent regression in Chrome. I feel like it started a few weeks ago in November? I can confirm the change of behavior between versions 48.0.2564.103 and 54.0.2840.98.</li>
+	<li>Safari and Firefox both show the caret left aligned in this case (like Chrome used to)</li>
+	<li>IE11/Edge put the caret after the before content</li>
+</ul>
+
+</body>
+</html>

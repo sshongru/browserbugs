@@ -2,6 +2,12 @@
 
 When you build a text editing surface based on contenteditable which is designed for use on both iOS and desktop you run into a lot of browser bugs.  I've gathered a bunch of these bugs, samples, and workarounds here so it can be tracked in one place.
 
+### Chrome: Caret is misaligned when using :before as a placeholder in contenteditable region
+
+Chromium Bug: https://bugs.chromium.org/p/chromium/issues/detail?id=670995
+
+See placeholderCaretAlign.html
+
 ### iOS10: mailto links don't work inside of frames
 
 Webkit bug: https://bugs.webkit.org/show_bug.cgi?id=164378
