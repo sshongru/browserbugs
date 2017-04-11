@@ -1,0 +1,53 @@
+<html>
+<head>
+<style>
+body {
+  margin: 40px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-color: yellow;
+}
+.pass {
+    margin: 1px;
+    padding: 20px;
+    background-color: #00AA00;
+}
+.fail {
+    margin: 1px;
+    padding: 20px;
+    background-color: #AA0000;
+}
+</style>
+</head>
+<body>
+    <h1>Chrome: Images of certain dimensions dont fully cover the background of elements that are 60x60</h1>
+
+    <p><b>Steps to reproduce:</b></p>
+    <ol>
+        <li>Launch this page in the Chrome browser on a retina screen Macbook</li>
+        <li>Notice the yellow line on the top two images</li>
+    </ol>
+    <p><b>Expected Results:</b><br> No yellow line</p>
+    <p><b>Actual Results:</b><br> Yellow line</p>
+    
+    <p>It seems the <code>background-size: cover</code> CSS property does not fully cover the background of an element when the image used is of certain dimensions <b>and</b> the element is 60x60pixels. This page demonstrates it happening with 201x201 and 276x276 PNG images. Interestingly enough if you change the size of the element to 59x59 then the two failing cases start passing and the passing case starts failing.</p>
+
+    <p>Reproduced in Chrome 57.0.2987.133 (64-bit) on retina Macbook Pro. Works fine in Firefox and Safari.</p>
+
+    <div class="fail">
+        <div class="avatar" style="background-image: url(images/201x201-Red.png);"></div>
+    </div>
+    <div class="fail">
+        <div class="avatar" style="background-image: url(images/276x276-Red.png);"></div>
+    </div>
+    <div class="pass">
+        <div class="avatar" style="background-image: url(images/200x200-Green.png);"></div>
+    </div>
+</body>
+</html>
