@@ -1,0 +1,63 @@
+<html>
+<head>
+<title>Safari: Changing text alignment can leave artifacts on fonts that spill outside of the bounding box</title>
+<style>
+  body {
+    padding: 20px;
+  }
+  #heading {
+    text-align: left;
+    font-family: 'Dancing Script';
+    font-size: 200px;
+    background-color: #e3e3e3;
+  }
+  #heading.center {
+    text-align: center;
+  }
+</style>
+<script>
+  function handleButtonClick(){
+    var heading = document.getElementById( 'heading' );
+    var className = 'center';
+
+    if ( heading.classList.contains( className ) ){
+      heading.classList.remove( className );
+    } else {
+      heading.classList.add( className );
+    }
+  }
+</script>
+<link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet">
+</head>
+<body>
+
+<h1>Safari: Changing text alignment can leave artifacts on fonts that spill outside of the bounding box</h1>
+
+<h2>Steps to reproduce:</h2>
+<ol>
+	<li>Load this page</li>
+	<li>Click the <code>Toggle Alignment</code> button</li>
+  <li>Notice the artifact that remains where the bottom of the J used to be</li>
+</ol>
+
+<p>It seems that the parts of a glyph that spills outside of the bounding box of the element isn't getting cleaned up when the text alignment is changed.</p>
+
+<h2>Environment:</h2>
+<p>Reproduced on the following environments:</p>
+<ul>
+  <li>Safari Version 10.0.1 (11602.2.14.0.7) on a Macbook Pro</li>
+  <li>Safari on iPad Air with iOS 9.0</li>
+  <li>Safari on iPad Air with iOS 9.3.2</li>
+  <li>Safari on iPad Air with iOS 10.3.2</li>
+</ul>
+<p>Unable to reproduce on:</p>
+<ul>
+  <li>Google Chrome Version 57.0.2987.133 (64-bit) on a Macbook Pro</li>
+  <li>Firefox 52.0.2 (64-bit) on Macbook Pro</li>
+</ul> 
+
+<button onclick="handleButtonClick()">Toggle Alignment</button>
+<div id="heading">Just Change The Text Align</div>
+
+</body>
+</html>
