@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>Safari: touchmove preventDefault() no longer respected in iOS11.3 (Beta)</title>
+<style>
+  body {
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Safari: touchmove preventDefault() no longer respected in iOS11.3 (Beta)</h1>
+
+<h2>Steps to reproduce:</h2>
+<ol>
+  <li>Open Safari on iPad with iOS11.3 (15E5167F) Beta</li>
+	<li>Load this page</li>
+	<li>Try to scroll the page</li>
+  <li>Notice that rubberbanding happens</li>
+</ol>
+
+<h2>Environment:</h2>
+<p>Reproduced on the following environments:</p>
+<ul>
+  <li>Safari on iPad Pro with iOS 11.3 (15E5167F) Beta</li>
+  <li>Safari on iPad Mini 2 with iOS 11.3 (15E5167F) Beta</li>
+</ul>
+<p>Unable to reproduce on:</p>
+<ul>
+  <li>Safari on iPad Pro with iOS 11.2.5</li>
+</ul> 
+</body>
+
+<script>
+  document.body.addEventListener( 'touchmove', function ( e ){ 
+    e.preventDefault(); 
+  });
+</script>
+</html>

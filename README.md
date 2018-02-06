@@ -2,6 +2,12 @@
 
 When you build a text editing surface based on contenteditable which is designed for use on both iOS and desktop you run into a lot of browser bugs.  I've gathered a bunch of these bugs, samples, and workarounds here so it can be tracked in one place.
 
+### Safari: touchmove preventDefault() no longer respected in iOS11.3 (Beta)
+
+Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=182521
+
+See unrespectedPreventDefault.html
+
 ### Safari: Changing text alignment can leave artifacts on fonts that spill outside of the bounding box
 
 Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=170801
