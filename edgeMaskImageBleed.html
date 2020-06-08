@@ -1,0 +1,92 @@
+
+<html>
+<head>
+<style>
+.holder {
+  border: 1px solid #ccc;
+  width: 100px;
+  display: inline-block;
+}
+
+.pass {color: green;}
+.fail {color: red;}
+
+.mask {
+  width: 100px;
+  height: 100px;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-size: 12px 12px;
+          mask-size: 12px 12px;
+  -webkit-mask-position: center;
+          mask-position: center;
+}
+
+.svgMask0 {
+  background-color: red;
+  -webkit-mask-image: url('images/plus0.svg');
+          mask-image: url('images/plus0.svg');
+}
+
+.svgMask1 {
+  background-color: red;
+  -webkit-mask-image: url('images/plus1.svg');
+          mask-image: url('images/plus1.svg');
+
+}
+
+.pngMask0 {
+  background-color: green;
+  -webkit-mask-image: url('images/plus0.png');
+          mask-image: url('images/plus0.png');
+}
+
+.pngMask1 {
+  background-color: green;
+  -webkit-mask-image: url('images/plus1.png');
+          mask-image: url('images/plus1.png');
+}
+
+</style>
+<body>
+
+<h1>Microsoft Edge (Legacy) v44 Bug</h1>
+
+<h3 class="fail">SVG masks fail with color against viewBox bounds</h3>
+
+<p>Same SVG asset with different viewBox sizes...</p>
+
+<div class="holder">
+  SVG file with color <strong>0px</strong> from the right/bottom edges
+  <div class="mask svgMask0"></div>
+</div>
+<div class="holder">
+  SVG file with color <strong>1px</strong> from the right/bottom edges
+  <div class="mask svgMask1"></div>
+</div>
+
+<p>
+Edge is repeating the final line of pixels inside the viewBox to the right and below :( 
+</p>
+
+<h4>Potential Workarounds</h4>
+
+<ol>
+<li>Ensure the mask size exactly matches the element size</li>
+<li>Ensure the mask is positioned bottom right</li>
+<li>Change the SVG asset so no color is touching the edge of the viewBox</li>
+</ol>
+
+<h3 class="pass">PNG masks work fine</h3>
+
+<div class="holder">
+  PNG file with color <strong>0px</strong> from the right/bottom edges
+  <div class="mask pngMask0"></div>
+</div>
+<div class="holder">
+  PNG file with color <strong>1px</strong> from the right/bottom edges
+  <div class="mask pngMask1"></div>
+</div>
+
+</body>
+</html>
