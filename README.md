@@ -6,6 +6,8 @@ When you build a text editing surface based on contenteditable which is designed
 
 See edgeMaskImageBleed.html
 
+![Comparing Edge to Chrome](https://raw.githubusercontent.com/sshongru/browserbugs/master/images/edgeMaskImageBleedBrowserComparison.png)
+
 ### UIWebView: [iOS13] touch-action:none does not suppress rubber banding in UIWebView
 
 Webkit Bug: https://bugs.webkit.org/show_bug.cgi?id=200741
